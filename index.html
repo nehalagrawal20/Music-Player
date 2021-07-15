@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player</title>
+    <script src="https://kit.fontawesome.com/6f22a2fde9.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <div class="main">
+        <div class="container">
+            <div class="top">
+                <div class="header">
+                    <h2>Instrumental</h2>
+                    <h3> <span class="rem"></span> 4 songs</h3>
+                </div>
+                <div class="image">
+                    <img src="image/nehal3.jpg" alt="">
+                </div>
+                <div class="audio">
+                    <audio src="music/nehal3.mp3"></audio>
+                </div>
+            </div>
+            <div class="bottom">
+                <h2 class="footer" id="title">Harry Potter</h2>
+                <h4 class="footer" id="artist">John Williams</h3>
+
+                    <div class="controls">
+                        <i class="fas fa-backward" id="prev" title="Previous"></i>
+                        <i class="fas fa-play center" id="play" title="Play"></i>
+                        <i class="fas fa-forward" id="next" title="Next"></i>
+                    </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const music = document.querySelector("audio");
+        const img = document.querySelector("img");
+        const play = document.getElementById("play");
+        const title = document.getElementById("title");
+        const artist = document.getElementById("artist");
+        const prev = document.getElementById("prev");
+        const next = document.getElementById("next");
+
+        const songs = [
+            {
+                name: "nehal3",
+                title: "Harry Potter",
+                artist: "John Williams",
+            },
+            {
+                name: "nehal4",
+                title: "Scam1992",
+                artist: "Achint Thakkar",
+            },
+            {
+                name: "nehal1",
+                title: "Game Of Thrones",
+                artist: "Ramin Djawadi",
+
+            },
+            {
+
+                name: "nehal2",
+                title: "Friends",
+                artist: "The Rembrandts",
+            }];
+
+        let isPlaying = false;
+
+        // For play music 
+        const playMusic = () => {
+            isPlaying = true;
+            music.play();
+            play.classList.replace("fa-play", "fa-pause");
+            img.classList.add("anime");
+        };
+
+        // For pause music 
+        const pauseMusic = () => {
+            isPlaying = false;
+            music.pause();
+            play.classList.replace("fa-pause", "fa-play");
+            img.classList.remove("anime");
+        };
+
+        play.addEventListener('click', () => {
+            isPlaying ? pauseMusic() : playMusic();
+        });
+
+        // Change the music date 
+
+        const loadSongs = (songs) => {
+            title.textContent = songs.title;
+            artist.textContent = songs.artist;
+            music.src = `music/${songs.name}.mp3`;
+            img.src = `image/${songs.name}.jpg`;
+        };
+
+        // loadSongs(songs[0]);
+        songIndex = 0;
+
+        const nextSong = () => {
+            songIndex = (songIndex + 1) % songs.length;
+            loadSongs(songs[songIndex]);
+            playMusic();
+        }
+        const prevSong = () => {
+            songIndex = (songIndex - 1 + songs.length) % songs.length;
+            loadSongs(songs[songIndex]);
+            playMusic();
+        }
+
+        next.addEventListener("click", nextSong);
+        prev.addEventListener("click", prevSong);
+
+
+
+
+
+    </script>
+</body>
+
+</html>
